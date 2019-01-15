@@ -4,6 +4,7 @@ import MessagesItem from '../../MessagesItem/MessagesItem';
 import AddEditMessages from '../AddEditMessages/AddEditMessages';
 
 import smashRequests from '../../../helpers/data/smashRequests';
+import messageRequests from '../../../helpers/data/messageRequests';
 
 class Messages extends React.Component {
   state = {
@@ -25,6 +26,17 @@ class Messages extends React.Component {
     this.getMessagesForPage();
   }
 
+  formSubmitEvent = (newMessage) => {
+    messageRequests.createMessage(newMessage)
+      .then(() => {
+        smashRequests.getAllMessagesWithUserInfo()
+          .then((messages) => {
+            this.setState({ messages });
+          });
+      })
+      .catch(err => console.error('error with messages post', err));
+  }
+
   render() {
     const { messages } = this.state;
     const messagesItemComponents = messages.map(message => (
@@ -38,7 +50,7 @@ class Messages extends React.Component {
       <div className="container">
       <h2>Messages Page</h2>
       {messagesItemComponents}
-      <AddEditMessages />
+      <AddEditMessages onSubmit={this.formSubmitEvent}/>
       </div>
       </div>
     );

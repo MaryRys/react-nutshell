@@ -1,5 +1,6 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import Proptypes from 'prop-types';
+import authRequests from '../../../helpers/data/authRequests';
 
 const emptyMessage = {
   message: '',
@@ -9,15 +10,38 @@ const emptyMessage = {
 };
 
 class AddEditMessage extends React.Component {
+  static propTypes = {
+    onSubmit: Proptypes.func,
+  }
+
   state = {
     newMessage: emptyMessage,
   }
 
+  formFriendStringState = (name, e) => {
+    e.preventDefault();
+    const tempMessage = { ...this.state.newMessage };
+    tempMessage[name] = e.target.value;
+    this.setState({ newMessage: tempMessage });
+  }
+
+  messageChange = e => this.formFriendStringState('message', e);
+
+  formSubmit = (e) => {
+    e.preventDefault();
+    const { onSubmit } = this.props;
+    const myMessage = { ...this.state.newMessage };
+    myMessage.uid = authRequests.getCurrentUid();
+    onSubmit(myMessage);
+    this.setState({ newMessage: emptyMessage });
+  }
+
   render() {
+    const { newMessage } = this.state;
     return (
       <div>
       <h4>Write a message:</h4>
-      <form>
+      <form onSubmit={this.formSubmit}>
         <div className="form-group">
       <label htmlFor="exampleInputMessage">Message:</label>
       <input
@@ -25,7 +49,10 @@ class AddEditMessage extends React.Component {
       className="form-control"
       id="message"
       aria-describedby="messageHelp"
-      placeholder="Enter message" />
+      placeholder="Enter message"
+      value={newMessage.message}
+      onChange={this.messageChange}
+      />
         </div>
         <button className="btn btn-danger">Add</button>
       </form>
