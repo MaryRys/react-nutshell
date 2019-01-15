@@ -4,7 +4,6 @@ import React from 'react';
 class MessagesItem extends React.Component {
   render() {
     const { message } = this.props;
-    console.log(message);
     return (
       <div className="messagesItem">
         <div className="container">
