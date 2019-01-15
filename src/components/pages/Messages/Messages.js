@@ -1,6 +1,7 @@
 import React from 'react';
 import './Messages.scss';
 import MessagesItem from '../../MessagesItem/MessagesItem';
+import AddEditMessages from '../AddEditMessages/AddEditMessages';
 
 import smashRequests from '../../../helpers/data/smashRequests';
 
@@ -37,6 +38,7 @@ class Messages extends React.Component {
       <div className="container">
       <h2>Messages Page</h2>
       {messagesItemComponents}
+      <AddEditMessages />
       </div>
       </div>
     );
