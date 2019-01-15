@@ -1,7 +1,12 @@
 import React from 'react';
 import './MessagesItem.scss';
+import messageShape from '../../helpers/propz/messageShape';
 
 class MessagesItem extends React.Component {
+  static propTypes = {
+    message: messageShape,
+  }
+
   render() {
     const { message } = this.props;
     return (
