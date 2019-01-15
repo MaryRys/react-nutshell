@@ -54,7 +54,7 @@ class AddEditMessage extends React.Component {
       onChange={this.messageChange}
       />
         </div>
-        <button className="btn btn-danger">Add</button>
+        <button className="btn btn-info">Add</button>
       </form>
       </div>
     );
