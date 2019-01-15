@@ -1,5 +1,5 @@
 import React from 'react';
-// import './MessagesItem.scss';
+import './MessagesItem.scss';
 
 class MessagesItem extends React.Component {
   render() {
@@ -9,7 +9,6 @@ class MessagesItem extends React.Component {
         <div className="container">
           <div className="row">
             <h3>{message.message}</h3>
-            {/* <img src={message.photo} alt="userImage"></img> */}
           </div>
           <h6>{message.userName}</h6>
         </div>
