@@ -36,9 +36,9 @@ class MessagesItem extends React.Component {
 
       <div className="messagesItem">
         <div className="container">
+        <h3>{message.message}</h3>
           <div className="row">
-            <h3>{message.message}</h3>
-          <h6>{message.userName}</h6>
+          <p>{message.userName}</p>
           <p>{moment(message.timestamp).format('LLL')}</p>
           { makeDeleteBtn() }
         </div>
