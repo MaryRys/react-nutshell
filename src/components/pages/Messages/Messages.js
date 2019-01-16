@@ -37,12 +37,24 @@ class Messages extends React.Component {
       .catch(err => console.error('error with messages post', err));
   }
 
+  deleteOne = (messageId) => {
+    messageRequests.deleteMessage(messageId)
+      .then(() => {
+        smashRequests.getAllMessagesWithUserInfo()
+          .then((messages) => {
+            this.setState({ messages });
+          });
+      })
+      .catch(err => console.error('error with deleting single message', err));
+  }
+
   render() {
     const { messages } = this.state;
     const messagesItemComponents = messages.map(message => (
       <MessagesItem
       message={message}
       key={message.id}
+      deleteSingleMessage={this.deleteOne}
       />
     ));
     return (
