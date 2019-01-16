@@ -9,6 +9,7 @@ class MessagesItem extends React.Component {
     static propTypes = {
       message: messageShape,
       deleteSingleMessage: PropTypes.func,
+      passMessageToEdit: PropTypes.func,
     }
 
     deleteEvent = (e) => {
@@ -16,6 +17,12 @@ class MessagesItem extends React.Component {
       const { deleteSingleMessage, message } = this.props;
       deleteSingleMessage(message.id);
     }
+
+    editEvent = (e) => {
+      e.preventDefault();
+      const { passMessageToEdit, message } = this.props;
+      passMessageToEdit(message.id);
+    };
 
     render() {
       const { message } = this.props;

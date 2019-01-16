@@ -9,6 +9,8 @@ import messageRequests from '../../../helpers/data/messageRequests';
 class Messages extends React.Component {
   state = {
     messages: [],
+    isEdited: false,
+    editId: '-1',
   }
 
   getMessagesForPage = () => {
@@ -48,8 +50,16 @@ class Messages extends React.Component {
       .catch(err => console.error('error with deleting single message', err));
   }
 
+  passMessageToEdit = messageId => this.setState({ isEdited: true, editId: messageId });
+
   render() {
-    const { messages } = this.state;
+    const {
+      authed,
+      messages,
+      isEdited,
+      editId,
+    } = this.state;
+
     const messagesItemComponents = messages.map(message => (
       <MessagesItem
       message={message}
