@@ -9,6 +9,7 @@ class MessagesItem extends React.Component {
     static propTypes = {
       message: messageShape,
       deleteSingleMessage: PropTypes.func,
+      passMessageToEdit: PropTypes.func,
     }
 
     deleteEvent = (e) => {
@@ -17,15 +18,22 @@ class MessagesItem extends React.Component {
       deleteSingleMessage(message.id);
     }
 
+    editEvent = (e) => {
+      e.preventDefault();
+      const { passMessageToEdit, message } = this.props;
+      passMessageToEdit(message.id);
+    };
+
     render() {
       const { message } = this.props;
       const uid = authRequests.getCurrentUid();
-      const makeDeleteBtn = () => {
+      const makeButtons = () => {
         if (message.uid === uid) {
           return (
           <div>
             <span className="col">
             <button className="btn btn-danger" onClick={this.deleteEvent}>x</button>
+            <button className="btn btn-success" onClick={this.editEvent}>Edit</button>
             </span>
           </div>
           );
@@ -40,7 +48,7 @@ class MessagesItem extends React.Component {
           <div className="row">
           <p>{message.userName}</p>
           <p>{moment(message.timestamp).format('LLL')}</p>
-          { makeDeleteBtn() }
+          { makeButtons() }
         </div>
       </div>
       </div>
