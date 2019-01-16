@@ -1,17 +1,21 @@
 import React from 'react';
 import Proptypes from 'prop-types';
+import moment from 'moment';
 import authRequests from '../../../helpers/data/authRequests';
+
+const getTime = moment().valueOf();
 
 const emptyMessage = {
   message: '',
-  timestamp: '',
+  timestamp: getTime,
   uid: '',
-  isEdited: '',
+  isEdited: false,
 };
 
 class AddEditMessage extends React.Component {
   static propTypes = {
     onSubmit: Proptypes.func,
+    isEdited: Proptypes.bool,
   }
 
   state = {
