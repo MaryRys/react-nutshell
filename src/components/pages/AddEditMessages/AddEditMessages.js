@@ -1,7 +1,8 @@
 import React from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import authRequests from '../../../helpers/data/authRequests';
+import messageRequests from '../../../helpers/data/messageRequests';
 
 const getTime = moment().valueOf();
 
@@ -14,8 +15,9 @@ const emptyMessage = {
 
 class AddEditMessage extends React.Component {
   static propTypes = {
-    onSubmit: Proptypes.func,
-    isEdited: Proptypes.bool,
+    onSubmit: PropTypes.func,
+    isEdited: PropTypes.bool,
+    editId: PropTypes.string,
   }
 
   state = {
@@ -40,8 +42,20 @@ class AddEditMessage extends React.Component {
     this.setState({ newMessage: emptyMessage });
   }
 
+  componentDidUpdate(prevProps) {
+    const { isEdited, editId } = this.props;
+    if (prevProps !== this.props && isEdited) {
+      messageRequests.getSingleMessage(editId)
+        .then((message) => {
+          this.setState({ newMessage: message.data });
+        })
+        .catch(err => console.error('error with getSingleMessage', err));
+    }
+  }
+
   render() {
     const { newMessage } = this.state;
+
     return (
       <div>
       <h4>Write a message:</h4>
