@@ -1,5 +1,6 @@
 import React from 'react';
 import './MessagesItem.scss';
+import moment from 'moment';
 import messageShape from '../../helpers/propz/messageShape';
 
 class MessagesItem extends React.Component {
@@ -14,9 +15,9 @@ class MessagesItem extends React.Component {
         <div className="container">
           <div className="row">
             <h3>{message.message}</h3>
-            <img src={message.photo} alt="userImage"></img>
           </div>
           <h6>{message.userName}</h6>
+          <p>{moment(message.timestamp).format('LLL')}</p>
         </div>
       </div>
 
