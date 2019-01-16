@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import authRequests from '../../helpers/data/authRequests';
+import messageShape from '../../helpers/propz/messageShape';
 import './MessagesItem.scss';
 
 class MessagesItem extends React.Component {
     static propTypes = {
-      // message: messageShape,
+      message: messageShape,
       deleteSingleMessage: PropTypes.func,
     }
 
@@ -31,14 +33,16 @@ class MessagesItem extends React.Component {
         return <span className="col-2"></span>;
       };
       return (
+
       <div className="messagesItem">
         <div className="container">
           <div className="row">
             <h3>{message.message}</h3>
-            { makeDeleteBtn() }
-          </div>
           <h6>{message.userName}</h6>
+          <p>{moment(message.timestamp).format('LLL')}</p>
+          { makeDeleteBtn() }
         </div>
+      </div>
       </div>
       );
     }
